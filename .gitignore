@@ -7,6 +7,9 @@
 
 
 
+!/chatbot
+/chatbot/venv
+
 !/LICENSE
 !/README.md
 
