@@ -9,6 +9,8 @@
 
 !/chatbot
 /chatbot/venv
+!/badges
+/badges/venv
 
 !/LICENSE
 !/README.md
