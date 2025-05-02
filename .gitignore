@@ -11,6 +11,8 @@
 /chatbot/venv
 !/badges
 /badges/venv
+!/palette
+/palette/venv
 
 !/LICENSE
 !/README.md

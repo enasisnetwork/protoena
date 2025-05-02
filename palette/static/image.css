@@ -1,0 +1,17 @@
+
+
+
+/**************************************/
+/* Structure elements for information */
+/**************************************/
+
+table {
+  border-spacing: 0px; }
+
+table th, table td {
+  padding: 0px 1px 0px 1px;
+  text-align: center;
+  text-transform: uppercase; }
+
+table th {
+  color: white; }
