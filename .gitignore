@@ -13,6 +13,8 @@
 /badges/venv
 !/palette
 /palette/venv
+!/chatcli
+/chatcli/venv
 
 !/LICENSE
 !/README.md

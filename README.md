@@ -13,3 +13,6 @@ Create palette from starter colors, aided by
 ## [Project Badges](/badges)
 Create images from HTML for badges in
 [Enasis Network](https://github.com/enasisnetwork) projects.
+
+## [Textual Chatting](/chatcli)
+Uses the `textual` library to create a basic mock LLM chat interface.
