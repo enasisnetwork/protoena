@@ -16,3 +16,6 @@ Create images from HTML for badges in
 
 ## [Textual Chatting](/chatcli)
 Uses the `textual` library to create a basic mock LLM chat interface.
+
+## [SANE Batch Scanner](/scanner)
+Uses `evdev` and `scanimage` after PS4 controller button sequence.
