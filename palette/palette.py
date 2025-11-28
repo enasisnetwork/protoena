@@ -13,19 +13,35 @@ from weasyprint import HTML
 
 
 
-starts = {
-    'gray': 'E9E9E9',
-    'red': 'FF6666',
-    'orange': 'FF9900',
-    'yellow': 'FFFF66',
-    'lime': '00FF00',
-    'green': '66FF66',
-    'cyan': '66FFFF',
-    'turqos': '66FFDD',
-    'blue': '66DDFF',
-    'booli': '089BD8',
-    'purple': 'CC00FF',
-    'pink': 'FF00CC'}
+starts = [
+
+    {'red1L': 'FF6666',     # one of six variations of FF/66
+     'gren1L': '66FF66',    # one of six variations of FF/66
+     'blue1L': '6666FF',    # one of six variations of FF/66
+     'yllw1L': 'FFFF66',    # one of six variations of FF/66
+     'cyan1L': '66FFFF',    # one of six variations of FF/66
+     'pink1L': 'FF66FF',    # one of six variations of FF/66
+     'gray1L': 'E9E9E9',
+     'orng1L': 'FF9900',
+     'blue2L': '66CCFF',
+     'mgta1L': 'FF00CC',
+     'purp1L': 'CC00FF',
+     'turq1L': '66FFCC',
+     'gold': 'FFCC00'},
+
+    {'red1D': 'AA0000',
+     'gren1D': '00AA00',
+     'blue1D': '0000AA',
+     'yllw1D': 'AAAA00',
+     'cyan1D': '00AAAA',
+     'pink1D': 'AA00AA',
+     'gray1D': '969696',
+     'orng1D': 'AA6600',
+     'blue2D': '0066AA',
+     'mgta1D': 'AA0066',
+     'purp1D': '6600AA',
+     'turq1D': '00AA66',
+     'booli': '089BD8'}]
 
 
 
@@ -43,85 +59,98 @@ image = (
 
 
 
-colors = {}
+def build_colors(starts):
 
-for name, start in starts.items():
+    colors = {}
 
-    color = Color(start)
+    for name, start in starts.items():
 
-    _colors = []
+        color = Color(start)
 
-    for count in range(6):
+        _colors = []
 
-        _lev = 6
+        for count in range(6):
 
-        if count == 1:
-            _lev = 2.5
+            _lev = 6
 
-        if count == 2:
-            _lev = 3.7
+            if count == 1:
+                _lev = 2.5
 
-        if count == 3:
-            _lev = 4.5
+            if count == 2:
+                _lev = 3.7
 
-        if count == 4:
-            _lev = 4.8
+            if count == 3:
+                _lev = 4.5
 
-        if count == 5:
-            _lev = 5.5
+            if count == 4:
+                _lev = 4.8
 
-        hue = color.hsl[0]
-        sat = color.hsl[1] - (count * (color.hsl[1] / 12))
-        lev = color.hsl[2] - (count * (color.hsl[2] / _lev))
+            if count == 5:
+                _lev = 5.5
 
-        _color = Color.from_hsl(
-            hue, sat, lev)
+            hue = color.hsl[0]
+            sat = color.hsl[1] - (count * (color.hsl[1] / 12))
+            lev = color.hsl[2] - (count * (color.hsl[2] / _lev))
 
-        _colors.append(_color)
+            _color = Color.from_hsl(
+                hue, sat, lev)
 
-    _colors[0] = color
+            _colors.append(_color)
 
-    print(name.upper(), [
-        str(x)[1:]
-        for x in _colors])
+        _colors[0] = color
 
-    colors[name] = _colors
+        print(name.upper(), [
+            str(x)[1:]
+            for x in _colors])
 
+        colors[name] = _colors
 
-
-total = len(list(colors.values())[0])
-
-
-element = '<table><thead><tr>'
-
-for name in colors:
-    element += f'<th>{name}</th>'
-
-element += '</tr></thead><tbody>'
+    return colors
 
 
-for row in range(total):
 
-    element += '<tr>'
+def build_element(colors):
 
-    for color in colors.values():
-        _color = color[row]
-        element += (
-            '<td style="'
-            f'background-color:{_color};'
-            f'">{str(_color)[1:]}</td>')
+    total = len(list(colors.values())[0])
 
-    element += '</tr>'
 
-element += '</tbody></table>'
+    element = '<table><thead><tr>'
+
+    for name in colors:
+        element += f'<th>{name}</th>'
+
+    element += '</tr></thead><tbody>'
+
+
+    for row in range(total):
+
+        element += '<tr>'
+
+        for color in colors.values():
+            _color = color[row]
+            element += (
+                '<td style="'
+                f'background-color:{_color};'
+                f'">{str(_color)[1:]}</td>')
+
+        element += '</tr>'
+
+    element += '</tbody></table>'
+
+    return element
 
 
 
 html_string = f"""
-    <link rel="stylesheet" href="file://{common}">
-    <link rel="stylesheet" href="file://{image}">
-    {element}
-    """
+<link rel="stylesheet" href="file://{common}">
+<link rel="stylesheet" href="file://{image}">
+"""
+
+for _starts in starts:
+
+    colors = build_colors(_starts)
+
+    html_string += build_element(colors)
 
 
 
